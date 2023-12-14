@@ -29,9 +29,9 @@ UI는 자유롭게 구현해도 상관없습니다. 단, 기본적으로 페이�
 ⚠️ 참고로 router 등을 이용하여 URL이 변경되는 진짜 페이지 이동 구현은 아닙니다. 단순히 컴포넌트 내에서 로직으로서 동작되는 UI입니다.
 
 
-<img width="500" alt="gif" src="https://github.com/prgrms-fe-devcourse/FEDC4-13_React/assets/44829481/4d1e4a04-0b60-47d2-a40f-0aa89c4c6653">
+<img width="500" alt="gif" src="https://github.com/prgrms-fe-devcourse/FEDC5-14_React/assets/44829481/7447fcbf-f03a-4a17-8f13-a463c9f6a658">
 
-<img width="500" alt="gif" src="https://github.com/prgrms-fe-devcourse/FEDC4-13_React/assets/44829481/5dabe81e-bbeb-41f3-94a3-28e70e774317">
+<img width="500" alt="gif" src="https://github.com/prgrms-fe-devcourse/FEDC5-14_React/assets/44829481/464b0ef9-f0cc-4764-8761-e888bae99087">
 
 ### Tooltip 컴포넌트 구현
 
@@ -47,4 +47,4 @@ React, TypeScript를 이용하여 Tooltip 컴포넌트를 구현합니다. 스�
 
 **예시**
 
-<img width="116" alt="Untitled" src="https://github.com/prgrms-fe-devcourse/FEDC4-13_React/assets/44829481/b51dfbbc-076f-4d9e-b17b-367d0e9f9dd8">
+<img width="116" alt="Untitled" src="https://github.com/prgrms-fe-devcourse/FEDC5-14_React/assets/44829481/8ae39665-1b7d-40b2-8f36-e030bc30b427">
