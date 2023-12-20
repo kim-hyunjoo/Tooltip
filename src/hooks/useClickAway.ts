@@ -1,27 +1,35 @@
-import { useCallback, useEffect, useState, useRef, RefObject } from "react";
+import { useEffect, useRef } from "react";
 
-const useHover = (): [RefObject<HTMLButtonElement>, boolean] => {
-  //hover중일 때는 true, 아닐 때는 false
-  const [state, setState] = useState(false);
+const events = ["mousedown", "touchstart"];
+
+const useClickAway = (handler: (e: Event) => void) => {
   const ref = useRef<HTMLButtonElement>(null);
+  const savedHandler = useRef(handler);
 
-  const handleMouseClick = useCallback(() => setState(true), []);
-  const handleMouseClickAway = useCallback(() => setState(false), []);
+  useEffect(() => {
+    savedHandler.current = handler;
+  }, [handler]);
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
 
-    element.addEventListener("mouseup", handleMouseClick);
-    element.addEventListener("mousedown", handleMouseClickAway);
+    const handleEvent = (e: Event) => {
+      !element.contains(e.target as Node) && savedHandler.current(e);
+    };
+
+    for (const eventName of events) {
+      document.addEventListener(eventName, handleEvent);
+    }
 
     return () => {
-      element.removeEventListener("mouseup", handleMouseClick);
-      element.removeEventListener("mousedown", handleMouseClickAway);
+      for (const eventName of events) {
+        document.removeEventListener(eventName, handleEvent);
+      }
     };
-  }, [ref, handleMouseClick, handleMouseClickAway]);
+  }, [ref]);
 
-  return [ref, state];
+  return ref;
 };
 
-export default useHover;
+export default useClickAway;

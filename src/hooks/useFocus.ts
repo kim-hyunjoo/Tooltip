@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState, useRef, RefObject } from "react";
 
-const useHover = (): [RefObject<HTMLInputElement>, boolean] => {
-  //hover중일 때는 true, 아닐 때는 false
+const useFocus = (): [RefObject<HTMLDivElement>, boolean] => {
   const [state, setState] = useState(false);
-  const ref = useRef<HTMLInputElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const handleFocusIn = useCallback(() => setState(true), []);
   const handleFocusOut = useCallback(() => setState(false), []);
@@ -24,4 +23,4 @@ const useHover = (): [RefObject<HTMLInputElement>, boolean] => {
   return [ref, state];
 };
 
-export default useHover;
+export default useFocus;

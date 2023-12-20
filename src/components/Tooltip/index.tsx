@@ -1,27 +1,23 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react'
 import React from 'react';
-import { Direction, ToolTip } from '../interfaces/interfaces'
+import { Direction, ToolTip } from 'interfaces/interfaces'
 
-const commonTip = css`
+const Tip = css`
   content: '';
   position: absolute;
   border-width: 5px;
   border-style: solid;
 `;
 
-const calculatePosition = (position: Direction['direction']) => {
+const positionByDirection = (position: Direction['direction']) => {
   switch (position) {
     case 'left':
       return css`
-        //left: 10px;
-        //top: 50%;
-        //left: calc(50% - 150px);
-        right: 100%;//calc(50%-20px);
-        //left: calc(100% + 20px);
-        margin-right: 10px;
+        right: calc(100% + 10px);
+        transform: translateY(-50%);
         &::after {
-          ${commonTip}
+          ${Tip}
           top: 50%;
           left: 100%;
           margin-top: -5px;
@@ -30,12 +26,11 @@ const calculatePosition = (position: Direction['direction']) => {
       `;
     case 'right':
       return css`
-        //top: 30%;
-        left: 100%;//calc(50% + 150px);
-        //bottom: calc(50% + 20px);
+        left: 100%;
+        transform: translateY(-50%);
         margin-left: 10px;
         &::after {
-          ${commonTip}
+          ${Tip}
           top: 50%;
           right: 100%;
           margin-top: -5px;
@@ -45,12 +40,11 @@ const calculatePosition = (position: Direction['direction']) => {
 
     case 'top':
       return css`
-        bottom: 100%;//calc(50% + 20px);
-        right: 30%;
-        //margin-left: -60px;
+        bottom: 100%;
         margin-bottom: 10px;
+        
         &::after {
-          ${commonTip}
+          ${Tip}
           top: 100%;
           left: 50%;
           margin-left: -5px;
@@ -60,12 +54,10 @@ const calculatePosition = (position: Direction['direction']) => {
 
     case 'bottom':
       return css`
-        top: 100%;//calc(50% + 20px);
-        right: 30%;
-        //margin-left: -60px;
+        top: 100%;
         margin-top: 10px;
         &::after {
-          ${commonTip}
+          ${Tip}
           bottom: 100%;
           left: 50%;
           margin-left: -5px;
@@ -78,37 +70,24 @@ const calculatePosition = (position: Direction['direction']) => {
   }
 };
 
-const Content = styled.span<Direction>`
-  width: 120px;
+const TooltipWrapper = styled.div<ToolTip>`
+  opacity: ${({ show }) => show ? 1 : 0};
+  transition: opacity 0.3s ease-in-out;
+  width: fit-content;
   background-color: black;
   text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
+  border-radius: 10px;
+  padding: 10px;
   color: white;
   position: absolute;
   z-index: 1;
 
-  ${({ direction }) => calculatePosition(direction)};
+  ${({ direction }) => positionByDirection(direction)};
 `;
 
-const Container = styled.div`
-  position: relative;
-  width: fit-content;
-  height: fit-content;
-  
-  &:hover > .tooltip,
-  &:active > .tooltip {
-    display: block;
-  }
-`;
-
-const Tooltip: React.FC<ToolTip> = ({ children, message, direction }) => {
+const Tooltip: React.FC<ToolTip> = ({ show=false, message, direction }) => {
   return (
-    /*<Container>
-      {children}*/
-      <Content className="tooltip" direction={direction}>{message}</Content>
-    /*</Container>*/
-    
+      <TooltipWrapper show={show} className="tooltip" direction={direction}>{message}</TooltipWrapper>   
   );
 };
 
